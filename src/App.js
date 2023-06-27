@@ -1,5 +1,5 @@
 function App() {
-  // const course = "Half Stack application development";
+  const course = "Half Stack application development";
   // const part1 = "Fundamentals of React";
   // const exercises1 = 10;
   // const part2 = "Using props to pass data";
@@ -7,30 +7,47 @@ function App() {
   // const part3 = "State of a component";
   // const exercises3 = 14;
 
-  const course = "Half Stack application development";
-  const part1 = {
-    name: "Fundamentals of React",
-    exercises: 10,
-  };
-  const part2 = {
-    name: "Using props to pass data",
-    exercises: 7,
-  };
-  const part3 = {
-    name: "State of a component",
-    exercises: 14,
-  };
+  // const part1 = {
+  //   name: "Fundamentals of React",
+  //   exercises: 10,
+  // };
+  // const part2 = {
+  //   name: "Using props to pass data",
+  //   exercises: 7,
+  // };
+  // const part3 = {
+  //   name: "State of a component",
+  //   exercises: 14,
+  // };
+
+
+  const parts = [
+    {
+      name: 'Fundamentals of React',
+      exercises: 10
+    },
+    {
+      name: 'Using props to pass data',
+      exercises: 7
+    },
+    {
+      name: 'State of a component',
+      exercises: 14
+    }
+  ]
 
   // header component
   const Header = (props) => {
     return <h1>{props.course}</h1>;
   };
 
+
   // Parts component
   const Parts = (props) => {
+    const {part, exercises} = props
     return (
       <p>
-        {props.parts} {props.exercises}
+        {part} {exercises}
       </p>
     );
   };
@@ -39,9 +56,10 @@ function App() {
   const Contents = () => {
     return (
       <>
-        <Parts parts={part1.name} exercises={part1.exercises} />
-        <Parts parts={part2.name} exercises={part2.exercises} />
-        <Parts parts={part3.name} exercises={part3.exercises} />
+        <Parts part={parts[0].name} exercises={parts[0].exercises} />
+        <Parts part={parts[1].name} exercises={parts[1].exercises} />
+        <Parts part={parts[2].name} exercises={parts[2].exercises} />
+
       </>
     );
   };
@@ -62,7 +80,8 @@ function App() {
     <div>
       <Header course={course} />
       <Contents />
-      <Total exercises1={part1.exercises} exercises2={part2.exercises} exercises3={part3.exercises} />
+      <Total exercises1={parts[0].exercises} exercises2={parts[1].exercises} exercises3={parts[2].exercises} />
+     
     </div>
   );
 }
