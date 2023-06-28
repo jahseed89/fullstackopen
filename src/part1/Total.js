@@ -1,16 +1,11 @@
 import React from 'react'
 
 const Total = (props) => {
-    const parts = props.parts
-
-    const exercises1 = parts[0]
-    const exercises2 = parts[1]
-    const exercises3 = parts[2]
-
+    const part = props.parts
     return (
       <p>
         The Number of exercises 
-         {exercises1.exercises + exercises2.exercises + exercises3.exercises}
+         {part[0].exercises + part[1].exercises + part[2].exercises}
       </p>
     );
 }
