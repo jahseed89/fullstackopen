@@ -23,7 +23,6 @@ function App() {
   //   exercises: 14,
   // };
 
-
   const course = {
     name: 'Half Stack application development',
     parts: [
@@ -49,7 +48,6 @@ function App() {
       <Header course={course.name} />
       <Content parts={course.parts} />
       <Total parts={course.parts} />
-     
     </div>
   );
 }
