@@ -1,53 +1,70 @@
-import Content from "./part1/Content";
-import Header from "./part1/Header";
-import Total from "./part1/Total";
+// import Content from './part1/exercise1.3.-1.5/Content';
+// import Header from './part1/exercise1.3.-1.5/Header';
+// import Practies from './part1/exercise1.3.-1.5/Practies';
+// import Total from './part1/exercise1.3.-1.5/Total';
+
+import { useState } from "react";
 
 function App() {
-  // const part1 = "Fundamentals of React";
-  // const exercises1 = 10;
-  // const part2 = "Using props to pass data";
-  // const exercises2 = 7;
-  // const part3 = "State of a component";
-  // const exercises3 = 14;
+ 
+  // const course = {
+  //   name: 'Half Stack application development',
+  //   parts: [
+  //     {
+  //       name: 'Fundamentals of React',
+  //       exercises: 10
+  //     },
+  //     {
+  //       name: 'Using props to pass data',
+  //       exercises: 7
+  //     },
+  //     {
+  //       name: 'State of a component',
+  //       exercises: 14
+  //     }
+  //   ]
+  // }
 
-  // const part1 = {
-  //   name: "Fundamentals of React",
-  //   exercises: 10,
-  // };
-  // const part2 = {
-  //   name: "Using props to pass data",
-  //   exercises: 7,
-  // };
-  // const part3 = {
-  //   name: "State of a component",
-  //   exercises: 14,
-  // };
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
 
-  const course = {
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7
-      },
-      {
-        name: 'State of a component',
-        exercises: 14
-      }
-    ]
+  // onclick on the good button funtion
+  const handleGood = () => {
+    setGood(good + 1)
+  }
+
+  // onclick on the neutral button function
+  const handleNeutral = () => {
+    setNeutral(neutral + 1)
+  }
+
+  // onclick on bad button funtion
+  const handleBad = () => {
+    setBad(bad + 1)
   }
 
 
   // Rendering all componts
   return (
     <div>
-      <Header course={course.name} />
+      {/* <Header course={course.name} />
       <Content parts={course.parts} />
-      <Total parts={course.parts} />
+      <Total parts={course.parts} /> */}
+      <div>
+        <h1>give feedback</h1>
+        <button onClick={handleGood}>good</button>
+        <button onClick={handleNeutral}>neutral</button>
+        <button onClick={handleBad}>bad</button>
+
+      </div>
+      <h1>statistic</h1>
+      <p>good {good} </p>
+      <p>neutral {neutral} </p>
+      <p>bad {bad} </p>
+      <p>all {good + neutral + bad}</p>
+
     </div>
   );
 }
