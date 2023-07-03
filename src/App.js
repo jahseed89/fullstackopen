@@ -5,6 +5,7 @@
 
 import { useState } from "react";
 import Statistic from "./part1/exercise1.6.-1.14/Statistic";
+import Button from "./part1/exercise1.6.-1.14/Button";
 
 function App() {
  
@@ -55,10 +56,9 @@ function App() {
       <Total parts={course.parts} /> */}
       <div>
         <h1>give feedback</h1>
-        <button onClick={handleGood}>good</button>
-        <button onClick={handleNeutral}>neutral</button>
-        <button onClick={handleBad}>bad</button>
-
+        <Button text="good" clickHandler={handleGood} />
+        <Button text="neutral" clickHandler={handleNeutral} />
+        <Button text="bad" clickHandler={handleBad} />
       </div>
       <Statistic good={good} neutral={neutral} bad={bad} />
       <p>all {good + neutral + bad}</p>
