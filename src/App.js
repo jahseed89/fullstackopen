@@ -4,8 +4,19 @@
 // import Total from './part1/exercise1.3.-1.5/Total';
 
 import { useState } from "react";
-import Statistic from "./part1/exercise1.6.-1.14/Statistic";
+// import Statistic from "./part1/exercise1.6.-1.14/Statistic";
 import Button from "./part1/exercise1.6.-1.14/Button";
+
+const anecdotes = [
+  'If it hurts, do it more often.',
+  'Adding manpower to a late software project makes it later!',
+  'The first 90 percent of the code accounts for the first 10 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+  'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+  'Premature optimization is the root of all evil.',
+  'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
+  'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
+  'The only way to go fast, is to go well.'
+]
 
 function App() {
  
@@ -28,24 +39,33 @@ function App() {
   // }
 
   // save clicks of each button to its own state
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
+  // const [good, setGood] = useState(0)
+  // const [neutral, setNeutral] = useState(0)
+  // const [bad, setBad] = useState(0)
+
+  // anecdotes state function
+  const [selected, setSelected] = useState(0)
 
   // onclick on the good button funtion
-  const handleGood = () => {
-    setGood(good + 1)
-  }
+  // const handleGood = () => {
+  //   setGood(good + 1)
+  // }
 
   // onclick on the neutral button function
-  const handleNeutral = () => {
-    setNeutral(neutral + 1)
-  }
+  // const handleNeutral = () => {
+  //   setNeutral(neutral + 1)
+  // }
 
   // onclick on bad button funtion
-  const handleBad = () => {
-    setBad(bad + 1)
-  }
+  // const handleBad = () => {
+  //   setBad(bad + 1)
+  // }
+
+const nextCote = () => {
+  const randomName = anecdotes[Math.floor(Math.random() * anecdotes.length)]  
+  console.log(anecdotes.length)
+  setSelected(randomName)
+}
 
 
   // Rendering all componts
@@ -54,15 +74,17 @@ function App() {
       {/* <Header course={course.name} />
       <Content parts={course.parts} />
       <Total parts={course.parts} /> */}
-      <div>
+      {/* <div>
         <h1>give feedback</h1>
         <Button text="good" clickHandler={handleGood} />
         <Button text="neutral" clickHandler={handleNeutral} />
         <Button text="bad" clickHandler={handleBad} />
-      </div>
-      <Statistic good={good} neutral={neutral} bad={bad} />
-      <p>all {good + neutral + bad}</p>
+      </div> */}
+      {/* <Statistic good={good} neutral={neutral} bad={bad} />
+      <p>all {good + neutral + bad}</p> <br /> <br /> */}
 
+    <p>{selected}</p>
+     <Button text="next anecdote" clickHandler={nextCote} />
     </div>
   );
 }
