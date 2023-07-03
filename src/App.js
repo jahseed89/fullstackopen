@@ -4,6 +4,7 @@
 // import Total from './part1/exercise1.3.-1.5/Total';
 
 import { useState } from "react";
+import Statistic from "./part1/exercise1.6.-1.14/Statistic";
 
 function App() {
  
@@ -59,10 +60,7 @@ function App() {
         <button onClick={handleBad}>bad</button>
 
       </div>
-      <h1>statistic</h1>
-      <p>good {good} </p>
-      <p>neutral {neutral} </p>
-      <p>bad {bad} </p>
+      <Statistic good={good} neutral={neutral} bad={bad} />
       <p>all {good + neutral + bad}</p>
 
     </div>
