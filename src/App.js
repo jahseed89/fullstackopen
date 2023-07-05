@@ -3,20 +3,25 @@
 // import Practies from './part1/exercise1.3.-1.5/Practies';
 // import Total from './part1/exercise1.3.-1.5/Total';
 
-import { useState } from "react";
-// import Statistic from "./part1/exercise1.6.-1.14/Statistic";
-import Button from "./part1/exercise1.6.-1.14/Button";
+import Contents from "./part2/Contents";
+import Header from "./part2/Header";
 
-const anecdotes = [
-  'If it hurts, do it more often.',
-  'Adding manpower to a late software project makes it later!',
-  'The first 90 percent of the code accounts for the first 10 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
-  'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
-  'Premature optimization is the root of all evil.',
-  'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
-  'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
-  'The only way to go fast, is to go well.'
-]
+// import { useState } from "react";
+// import Statistic from "./part1/exercise1.6.-1.14/Statistic";
+// import Button from "./part1/exercise1.6.-1.14/Button";
+
+// const anecdotes = [
+//   'If it hurts, do it more often.',
+//   'Adding manpower to a late software project makes it later!',
+//   'The first 90 percent of the code accounts for the first 10 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+//   'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+//   'Premature optimization is the root of all evil.',
+//   'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
+//   'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
+//   'The only way to go fast, is to go well.',
+//   'Everything easy with understanding',
+//   'Foundamental right'
+// ]
 
 function App() {
  
@@ -44,7 +49,7 @@ function App() {
   // const [bad, setBad] = useState(0)
 
   // anecdotes state function
-  const [selected, setSelected] = useState(0)
+  // const [selected, setSelected] = useState(0)
 
   // onclick on the good button funtion
   // const handleGood = () => {
@@ -61,14 +66,35 @@ function App() {
   //   setBad(bad + 1)
   // }
 
-const nextCote = () => {
-  const randomName = anecdotes[Math.floor(Math.random() * anecdotes.length)]  
-  console.log(anecdotes.length)
-  setSelected(randomName)
-}
+// const nextCote = () => {
+//   const randomNames = anecdotes[Math.floor(Math.random() * anecdotes.length)]  
+//   console.log(anecdotes.length)
+//   setSelected(randomNames)
+// }
 
 
   // Rendering all componts
+  const course = {
+    id: 1,
+    name: 'Half Stack application development',
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10,
+        id: 1
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7,
+        id: 2
+      },
+      {
+        name: 'State of a component',
+        exercises: 14,
+        id: 3
+      }
+    ]
+  }
   return (
     <div>
       {/* <Header course={course.name} />
@@ -83,8 +109,10 @@ const nextCote = () => {
       {/* <Statistic good={good} neutral={neutral} bad={bad} />
       <p>all {good + neutral + bad}</p> <br /> <br /> */}
 
-    <p>{selected}</p>
-     <Button text="next anecdote" clickHandler={nextCote} />
+    {/* <p>{selected}</p>
+     <Button text="next anecdote" clickHandler={nextCote} /> */}
+     <Header course={course.name} />
+     <Contents parts={course.parts} />
     </div>
   );
 }
