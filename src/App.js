@@ -3,8 +3,10 @@
 // import Practies from './part1/exercise1.3.-1.5/Practies';
 // import Total from './part1/exercise1.3.-1.5/Total';
 
-import Contents from "./part2/Contents";
-import Header from "./part2/Header";
+import PhonebookApp from "./part2/PhonebookApp";
+
+// import Contents from "./part2/Contents";
+// import Header from "./part2/Header";
 
 // import { useState } from "react";
 // import Statistic from "./part1/exercise1.6.-1.14/Statistic";
@@ -24,6 +26,7 @@ import Header from "./part2/Header";
 // ]
 
 function App() {
+
  
   // const course = {
   //   name: 'Half Stack application development',
@@ -74,27 +77,34 @@ function App() {
 
 
   // Rendering all componts
-  const course = {
-    id: 1,
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10,
-        id: 1
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7,
-        id: 2
-      },
-      {
-        name: 'State of a component',
-        exercises: 14,
-        id: 3
-      }
-    ]
-  }
+  // const course = {
+  //   id: 1,
+  //   name: 'Half Stack application development',
+  //   parts: [
+  //     {
+  //       name: 'Fundamentals of React',
+  //       exercises: 10,
+  //       id: 1
+  //     },
+  //     {
+  //       name: 'Using props to pass data',
+  //       exercises: 7,
+  //       id: 2
+  //     },
+  //     {
+  //       name: 'State of a component',
+  //       exercises: 14,
+  //       id: 3
+  //     }
+  //   ]
+  // }
+
+  // const total = course.parts.reduce((sum, exe) => {
+  //   return sum + exe.exercises
+  // }, 0)
+
+
+
   return (
     <div>
       {/* <Header course={course.name} />
@@ -111,8 +121,12 @@ function App() {
 
     {/* <p>{selected}</p>
      <Button text="next anecdote" clickHandler={nextCote} /> */}
-     <Header course={course.name} />
-     <Contents parts={course.parts} />
+     {/* <Header course={course.name} />
+     <Contents parts={course.parts} /> */}
+     {/* <h3>The total exercises: {total}</h3> */}
+
+     {/* <NoteIndex /> */}
+     <PhonebookApp />
     </div>
   );
 }
