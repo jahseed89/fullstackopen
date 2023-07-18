@@ -3,7 +3,7 @@
 // import Practies from './part1/exercise1.3.-1.5/Practies';
 // import Total from './part1/exercise1.3.-1.5/Total';
 
-import PhonebookApp from "./part2/PhonebookApp";
+import PhonebookApp from "./part2/phonebook/PhonebookApp";
 
 // import Contents from "./part2/Contents";
 // import Header from "./part2/Header";
