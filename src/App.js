@@ -2,6 +2,7 @@
 // import Header from './part1/exercise1.3.-1.5/Header';
 // import Practies from './part1/exercise1.3.-1.5/Practies';
 // import Total from './part1/exercise1.3.-1.5/Total';
+import React from 'react';
 
 import PhonebookApp from "./part2/phonebook/PhonebookApp";
 

@@ -1,23 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Filter from "./Filter";
 import PersonsFrom from "./PersonsFrom";
 import Persons from "./Persons";
+import axios from "axios";
 
 const PhonebookApp = () => {
-  const [persons, setPersons] = useState([
-    {
-      name: "Arto Hellas",
-      number: "09049043493",
-    },
-    {
-      name: "Ben Stiks",
-      number: "98174638393",
-    },
-    {
-      name: "James Atoobi",
-      number: "98383930384",
-    },
-  ]);
+
+  const [persons, setPersons] = useState([])
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/persons")
+    .then((response) => {
+      setPersons(response.data)
+      console.log(response.data)
+    })
+  }, [])
 
   const [values, setValues] = useState({
     name: "",
