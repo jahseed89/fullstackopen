@@ -59,8 +59,11 @@ const PhonebookApp = () => {
         number: values.number,
         id: persons.length + 1,
       };
-      setPersons(persons.concat(personObj));
-      setValues({ name: "", number: "" });
+
+      axios.post("http://localhost:3001/persons", personObj).then((response) => {
+        setPersons(persons.concat(response.data));
+        setValues({ name: "", number: "" });
+      })
     }
   };
 
