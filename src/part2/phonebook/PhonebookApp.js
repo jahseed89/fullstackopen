@@ -2,17 +2,20 @@ import React, { useEffect, useState } from "react";
 import Filter from "./Filter";
 import PersonsFrom from "./PersonsFrom";
 import Persons from "./Persons";
-import axios from "axios";
+import personServer from "../../server/personServer";
 
 const PhonebookApp = () => {
 
   const [persons, setPersons] = useState([])
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons")
+    personServer
+    .getAll()
     .then((response) => {
       setPersons(response.data)
       console.log(response.data)
+    }).catch(error => {
+      console.log('fail', error)
     })
   }, [])
 
@@ -60,9 +63,13 @@ const PhonebookApp = () => {
         id: persons.length + 1,
       };
 
-      axios.post("http://localhost:3001/persons", personObj).then((response) => {
-        setPersons(persons.concat(response.data));
-        setValues({ name: "", number: "" });
+      personServer
+      .create(personObj)
+      .then(response => {
+        setPersons(persons.concat(response.data))
+        setValues({name: "", number: ""})
+      }).catch(error => {
+        console.log('fail', error)
       })
     }
   };
