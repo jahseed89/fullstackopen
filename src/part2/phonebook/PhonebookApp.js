@@ -5,19 +5,19 @@ import Persons from "./Persons";
 import personServer from "../../server/personServer";
 
 const PhonebookApp = () => {
-
-  const [persons, setPersons] = useState([])
+  const [persons, setPersons] = useState([]);
 
   useEffect(() => {
     personServer
-    .getAll()
-    .then((response) => {
-      setPersons(response.data)
-      console.log(response.data)
-    }).catch(error => {
-      console.log('fail', error)
-    })
-  }, [])
+      .getAll()
+      .then((response) => {
+        setPersons(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log("fail", error);
+      });
+  }, []);
 
   const [values, setValues] = useState({
     name: "",
@@ -64,14 +64,27 @@ const PhonebookApp = () => {
       };
 
       personServer
-      .create(personObj)
-      .then(response => {
-        setPersons(persons.concat(response.data))
-        setValues({name: "", number: ""})
-      }).catch(error => {
-        console.log('fail', error)
-      })
+        .create(personObj)
+        .then((response) => {
+          setPersons(persons.concat(response.data));
+          setValues({ name: "", number: "" });
+        })
+        .catch((error) => {
+          console.log("fail", error);
+        });
     }
+  };
+
+  const deletPerson = (id) => {
+    personServer
+    .del(id)
+    .then((response) => {
+      console.log(response.data);
+      setPersons(persons.filter((person) => person.id !== id));
+    })
+    .catch((error) => {
+      console.log(`Error deleting person, ${error}`);
+    });
   };
 
   return (
@@ -86,13 +99,14 @@ const PhonebookApp = () => {
         numOnchange={handleNameAndNum}
       />
       <h2>Numbers</h2>
-      
+
       {filteredNames.length > 0
         ? filteredNames.map((person) => (
             <Persons
               key={person.id}
               name={person.name}
               number={person.number}
+              handleDelete={deletPerson}
             />
           ))
         : persons.map((person) => (
@@ -100,6 +114,7 @@ const PhonebookApp = () => {
               key={person.id}
               name={person.name}
               number={person.number}
+              handleDelete={deletPerson}
             />
           ))}
     </div>
