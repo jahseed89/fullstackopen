@@ -83,6 +83,23 @@ const PhonebookApp = () => {
     }
   };
 
+  const handleUpdate = (id, newNumber) => {
+    const personToUpdate = persons.find((person) => person.id === id);
+    const updatedPerson = { ...personToUpdate, number: newNumber };
+
+    personServer
+    .update(id, updatedPerson)
+    .then((response) => {
+      setPersons(
+        persons.map((person) => (person.id === id ? response.data : person))
+      );
+    })
+    .catch((error) => {
+      console.log(`Error updating person, ${error}`);
+    });
+    
+  }
+
   const deletPerson = id => {
     personServer
     .del(id)
@@ -113,17 +130,21 @@ const PhonebookApp = () => {
         ? filteredNames.map((person) => (
             <Persons
               key={person.id}
+              id={person.id}
               name={person.name}
               number={person.number}
               handleDelete={() => deletPerson(person.id)}
+              handleUpdate={handleUpdate}
             />
           ))
         : persons.map((person) => (
             <Persons
               key={person.id}
+              id={person.id}
               name={person.name}
               number={person.number}
               handleDelete={() => deletPerson(person.id)}
+              handleUpdate={handleUpdate}
             />
           ))}
     </div>
