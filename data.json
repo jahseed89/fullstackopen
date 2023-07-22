@@ -1,0 +1,24 @@
+{
+  "persons": [
+    {
+      "name": "Kelvin Cross",
+      "number": "348383920",
+      "id": "65c55ae9-fbcb-472c-be4f-44aa69c6cf41"
+    },
+    {
+      "name": "Samson Ocran",
+      "number": "09083847394",
+      "id": "72b92c06-bad9-4782-97f8-ad334134670c"
+    },
+    {
+      "name": "General Mutala",
+      "number": "339930033",
+      "id": "7773bd72-a5a9-43ce-a3e7-ff0862cb7d87"
+    },
+    {
+      "name": "Benji Garik",
+      "number": "9383832478",
+      "id": "ec283c91-3ee3-43f7-9bfc-99f349774285"
+    }
+  ]
+}

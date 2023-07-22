@@ -3,9 +3,12 @@ import Filter from "./Filter";
 import PersonsFrom from "./PersonsFrom";
 import Persons from "./Persons";
 import personServer from "../../server/personServer";
+import Notifier from "./Notifier";
+import { v4 as uuidv4 } from 'uuid';
 
 const PhonebookApp = () => {
   const [persons, setPersons] = useState([]);
+  const [notification, setNotification] = useState(null)
 
   useEffect(() => {
     personServer
@@ -60,7 +63,7 @@ const PhonebookApp = () => {
       let personObj = {
         name: values.name,
         number: values.number,
-        id: persons.length + 1,
+        id: uuidv4(), // Generate a unique id using uuid
       };
 
       personServer
@@ -68,6 +71,11 @@ const PhonebookApp = () => {
         .then((response) => {
           setPersons(persons.concat(response.data));
           setValues({ name: "", number: "" });
+          setNotification(`${personObj.name} has been added sussessfully`)
+
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000)
         })
         .catch((error) => {
           console.log("fail", error);
@@ -75,12 +83,12 @@ const PhonebookApp = () => {
     }
   };
 
-  const deletPerson = (id) => {
+  const deletPerson = id => {
     personServer
     .del(id)
     .then((response) => {
-      console.log(response.data);
-      setPersons(persons.filter((person) => person.id !== id));
+      console.log(response.data)
+      setPersons(persons.filter((personToDel) => personToDel.id !== id));
     })
     .catch((error) => {
       console.log(`Error deleting person, ${error}`);
@@ -90,6 +98,7 @@ const PhonebookApp = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notifier notifier={notification} />
       <Filter onChange={handleChange} />
       <PersonsFrom
         onSubmit={handleSubmit}
@@ -106,7 +115,7 @@ const PhonebookApp = () => {
               key={person.id}
               name={person.name}
               number={person.number}
-              handleDelete={deletPerson}
+              handleDelete={() => deletPerson(person.id)}
             />
           ))
         : persons.map((person) => (
@@ -114,7 +123,7 @@ const PhonebookApp = () => {
               key={person.id}
               name={person.name}
               number={person.number}
-              handleDelete={deletPerson}
+              handleDelete={() => deletPerson(person.id)}
             />
           ))}
     </div>
