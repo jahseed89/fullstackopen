@@ -3,9 +3,11 @@ import axios from "axios";
 
 const CountryData = () => {
   const [value, setValue] = useState("");
-  const [showCountry, setShowCountry] = useState(null);
-  const [error, setError] = useState(null);
-
+  const [showCountry, setShowCountry] = useState([]);
+  const [error, setError] = useState("No country found");
+  const [countryInfo, setCountryInfo] = useState(null);
+  const [flag, setFlag] = useState(null);
+  const [languages, setLanguages] = useState([]);
 
   const onSearch = (e) => {
     e.preventDefault();
@@ -14,25 +16,55 @@ const CountryData = () => {
 
   const fetchCountryData = (country) => {
     console.log("fetching country data...");
+    // Check if the search input has at least two characters
+    if (country.length >= 2) {
+      axios
+        .get(`https://restcountries.com/v2/name/${country}?fullText=false`)
+        .then((response) => {
+          if (response.data.length > 0) {
+            console.log(response.data);
+            // Map the response data to an array of country names
+            const countryNames = response.data.map((country) => country.name);
+            setShowCountry(countryNames); // Show the country names that match the filter
+          } else {
+            setShowCountry(null); // Reset the displayed country if no results
+            setError("Country not found"); // Set error message if no results
+          }
+        })
+        .catch((error) => {
+          console.log("Error fetching country data:", error);
+          setShowCountry(null); // Reset the displayed country on error
+          setError("Error fetching country data"); // Set error message on error
+        });
+    } else {
+      // If the search input has less than two characters, reset the displayed country and error messages
+      setShowCountry(null);
+      setError(null);
+    }
+  };
+  // *******Getting country information***********
+  const getCountryInfo = (countryInfo) => {
     axios
-      .get(`https://restcountries.com/v2/name/${country}`)
+      .get(`https://restcountries.com/v2/name/${countryInfo}?fullText=true`)
       .then((response) => {
         if (response.data.length > 0) {
-            console.log(response.data)
-          setShowCountry(response.data[0].name); // Show the first result if any
-          setError(null); // Reset error state
+          console.log(response.data);
+          setCountryInfo(response.data[0]);
+          setFlag(response.data[0].flags[0]);
+          setLanguages(response.data[0].languages);
         } else {
-          setShowCountry(null); // Reset the displayed country if no results
-          setError("Country not found"); // Set error message if no results
+          setCountryInfo(null);
+          setFlag(null);
+          setLanguages([]);
         }
       })
       .catch((error) => {
         console.log("Error fetching country data:", error);
-        setShowCountry(null); // Reset the displayed country on error
-        setError("Error fetching country data"); // Set error message on error
+        setCountryInfo(null);
+        setFlag(null);
+        setLanguages([]);
       });
   };
-
 
   const countryHandler = (event) => {
     setValue(event.target.value);
@@ -48,14 +80,41 @@ const CountryData = () => {
           placeholder="search for country"
           onChange={countryHandler}
         />
-        <button type="submit">Search</button> {/* Add a search button */}
       </form>
-      {showCountry && <p>Country: {showCountry}</p>}
-      {error && <p>Error: {error}</p>}
-      <div>
-        <h1>Language</h1>
-        {/* <img src={} alt="country flag" /> */}
-      </div>
+      {showCountry.length > 0 ? (
+        <ul>
+          {showCountry.map((currCountry, index) => {
+            return (
+              <li key={index} style={{ listStyle: "none" }}>
+                {currCountry}{" "}
+                <button onClick={() => getCountryInfo(currCountry)}>
+                  country details
+                </button>{" "}
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <p>{error}</p>
+      )}
+      {countryInfo && (
+        <div>
+          <h1>{countryInfo.name}</h1>
+          <h2>Language</h2>
+          <ul>
+            {languages.map((language, index) => {
+              return <li key={index}>{language.name}</li>;
+            })}
+          </ul>
+          {flag && (
+            <img
+              src={flag}
+              alt="country flag"
+              style={{ width: "100px", height: "auto" }}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };
