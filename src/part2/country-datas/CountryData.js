@@ -50,7 +50,7 @@ const CountryData = () => {
         if (response.data.length > 0) {
           console.log(response.data);
           setCountryInfo(response.data[0]);
-          setFlag(response.data[0].flags[0]);
+          setFlag(response.data[0].flags);
           setLanguages(response.data[0].languages);
         } else {
           setCountryInfo(null);
@@ -108,7 +108,7 @@ const CountryData = () => {
           </ul>
           {flag && (
             <img
-              src={flag}
+              src={flag.png}
               alt="country flag"
               style={{ width: "100px", height: "auto" }}
             />
