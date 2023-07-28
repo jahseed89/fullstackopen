@@ -2,10 +2,10 @@
 // import Header from './part1/exercise1.3.-1.5/Header';
 // import Practies from './part1/exercise1.3.-1.5/Practies';
 // import Total from './part1/exercise1.3.-1.5/Total';
-import React from 'react';
+import React from "react";
 
-// import PhonebookApp from "./part2/phonebook/PhonebookApp";
-import CountryData from './part2/country-datas/CountryData';
+import PhonebookApp from "./part2/phonebook/PhonebookApp";
+import CountryData from "./part2/country-datas/CountryData";
 
 // import Contents from "./part2/Contents";
 // import Header from "./part2/Header";
@@ -28,8 +28,6 @@ import CountryData from './part2/country-datas/CountryData';
 // ]
 
 function App() {
-
- 
   // const course = {
   //   name: 'Half Stack application development',
   //   parts: [
@@ -71,12 +69,11 @@ function App() {
   //   setBad(bad + 1)
   // }
 
-// const nextCote = () => {
-//   const randomNames = anecdotes[Math.floor(Math.random() * anecdotes.length)]  
-//   console.log(anecdotes.length)
-//   setSelected(randomNames)
-// }
-
+  // const nextCote = () => {
+  //   const randomNames = anecdotes[Math.floor(Math.random() * anecdotes.length)]
+  //   console.log(anecdotes.length)
+  //   setSelected(randomNames)
+  // }
 
   // Rendering all componts
   // const course = {
@@ -105,8 +102,6 @@ function App() {
   //   return sum + exe.exercises
   // }, 0)
 
-
-
   return (
     <div>
       {/* <Header course={course.name} />
@@ -121,15 +116,15 @@ function App() {
       {/* <Statistic good={good} neutral={neutral} bad={bad} />
       <p>all {good + neutral + bad}</p> <br /> <br /> */}
 
-    {/* <p>{selected}</p>
+      {/* <p>{selected}</p>
      <Button text="next anecdote" clickHandler={nextCote} /> */}
-     {/* <Header course={course.name} />
+      {/* <Header course={course.name} />
      <Contents parts={course.parts} /> */}
-     {/* <h3>The total exercises: {total}</h3> */}
+      {/* <h3>The total exercises: {total}</h3> */}
 
-     {/* <NoteIndex /> */}
-     {/* <PhonebookApp /> */}
-     <CountryData />
+      {/* <NoteIndex /> */}
+      <PhonebookApp />
+      <CountryData />
     </div>
   );
 }

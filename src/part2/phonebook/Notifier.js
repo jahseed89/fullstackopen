@@ -5,7 +5,7 @@ const Notifier = ({notifier}) => {
         return null
     }
   return (
-    <div>{notifier}</div>
+    <div style={{padding: '1rem .5rem', border: '2px solid green'}}>{notifier}</div>
   )
 }
 
