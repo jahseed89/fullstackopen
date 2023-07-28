@@ -97,8 +97,8 @@ const CountryData = () => {
             <span>{countryInfo.capital}</span>
           </p>
           <p>
-            <span>Region: </span>
-            <span>{countryInfo.region}</span>
+            <span>Code: </span>
+            <span>{countryInfo.callingCodes}</span>
           </p>
           <h2>Language</h2>
           <ul>
