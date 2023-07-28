@@ -1,18 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const CountryData = () => {
-  const [value, setValue] = useState("");
-  const [showCountry, setShowCountry] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [countries, setCountries] = useState([]);
   const [error, setError] = useState("No country found");
   const [countryInfo, setCountryInfo] = useState(null);
-  const [flag, setFlag] = useState(null);
-  const [languages, setLanguages] = useState([]);
 
-  const onSearch = (e) => {
-    e.preventDefault();
-    fetchCountryData(value); // Fetch country data when the form is submitted
-  };
+  useEffect(() => {
+    fetchCountryData(searchTerm);
+  }, [searchTerm]);
 
   const fetchCountryData = (country) => {
     console.log("fetching country data...");
@@ -25,20 +22,20 @@ const CountryData = () => {
             console.log(response.data);
             // Map the response data to an array of country names
             const countryNames = response.data.map((country) => country.name);
-            setShowCountry(countryNames); // Show the country names that match the filter
+            setCountries(countryNames); // Show the country names that match the filter
           } else {
-            setShowCountry(null); // Reset the displayed country if no results
+            setCountries([]); // Reset the displayed country if no results
             setError("Country not found"); // Set error message if no results
           }
         })
         .catch((error) => {
-          console.log("Error fetching country data:", error);
-          setShowCountry(null); // Reset the displayed country on error
+          console.log(`Error fetching countries data: ${error}`);
+          setCountries([]); // Reset the displayed country on error
           setError("Error fetching country data"); // Set error message on error
         });
     } else {
       // If the search input has less than two characters, reset the displayed country and error messages
-      setShowCountry(null);
+      setCountries([]);
       setError(null);
     }
   };
@@ -50,29 +47,24 @@ const CountryData = () => {
         if (response.data.length > 0) {
           console.log(response.data);
           setCountryInfo(response.data[0]);
-          setFlag(response.data[0].flags);
-          setLanguages(response.data[0].languages);
+          console.log("country code:", response.data[0].region);
         } else {
           setCountryInfo(null);
-          setFlag(null);
-          setLanguages([]);
         }
       })
       .catch((error) => {
         console.log("Error fetching country data:", error);
         setCountryInfo(null);
-        setFlag(null);
-        setLanguages([]);
       });
   };
 
   const countryHandler = (event) => {
-    setValue(event.target.value);
+    setSearchTerm(event.target.value);
   };
 
   return (
     <div>
-      <form onSubmit={onSearch}>
+      <form>
         find Country:{" "}
         <input
           type="text"
@@ -81,9 +73,9 @@ const CountryData = () => {
           onChange={countryHandler}
         />
       </form>
-      {showCountry.length > 0 ? (
+      {countries.length > 0 ? (
         <ul>
-          {showCountry.map((currCountry, index) => {
+          {countries.map((currCountry, index) => {
             return (
               <li key={index} style={{ listStyle: "none" }}>
                 {currCountry}{" "}
@@ -100,19 +92,25 @@ const CountryData = () => {
       {countryInfo && (
         <div>
           <h1>{countryInfo.name}</h1>
+          <p>
+            <span>Capital: </span>
+            <span>{countryInfo.capital}</span>
+          </p>
+          <p>
+            <span>Region: </span>
+            <span>{countryInfo.region}</span>
+          </p>
           <h2>Language</h2>
           <ul>
-            {languages.map((language, index) => {
+            {countryInfo.languages.map((language, index) => {
               return <li key={index}>{language.name}</li>;
             })}
           </ul>
-          {flag && (
-            <img
-              src={flag.png}
-              alt="country flag"
-              style={{ width: "100px", height: "auto" }}
-            />
-          )}
+          <img
+            src={countryInfo.flags.png}
+            alt="country flag"
+            style={{ width: "100px", height: "auto" }}
+          />
         </div>
       )}
     </div>
