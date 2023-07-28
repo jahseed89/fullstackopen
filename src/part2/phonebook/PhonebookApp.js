@@ -113,7 +113,7 @@ const PhonebookApp = () => {
   };
 
   return (
-    <div>
+    <div style={{marginBottom: '5rem'}}>
       <h2>Phonebook</h2>
       <Notifier notifier={notification} />
       <Filter onChange={handleChange} />
