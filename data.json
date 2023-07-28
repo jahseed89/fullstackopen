@@ -1,0 +1,39 @@
+{
+  "persons": [
+    {
+      "name": "Kelvin Cross",
+      "number": "348383920",
+      "id": "65c55ae9-fbcb-472c-be4f-44aa69c6cf41"
+    },
+    {
+      "name": "Samson Ocran",
+      "number": "09049043494",
+      "id": "72b92c06-bad9-4782-97f8-ad334134670c"
+    },
+    {
+      "name": "Benji Garik",
+      "number": "7778655497",
+      "id": "ec283c91-3ee3-43f7-9bfc-99f349774285"
+    },
+    {
+      "name": "Jahseed Sam",
+      "number": "08149835668",
+      "id": "8766fbf2-e6c5-43dd-9b0f-fb9a57ac106f"
+    },
+    {
+      "name": "Faith Jubilee",
+      "number": "090837394047",
+      "id": "ec921174-7578-4f77-bef4-f9c035bfb7f1"
+    },
+    {
+      "name": "James Born",
+      "number": "83393900",
+      "id": "01e3bae2-6945-41b6-9f83-f914a5d2275d"
+    },
+    {
+      "name": "Jerry John",
+      "number": "86990665443",
+      "id": "756b2bd4-bd50-4cc2-8d07-377bf1a3b77b"
+    }
+  ]
+}

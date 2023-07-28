@@ -2,19 +2,25 @@ import React, { useEffect, useState } from "react";
 import Filter from "./Filter";
 import PersonsFrom from "./PersonsFrom";
 import Persons from "./Persons";
-import axios from "axios";
+import personServer from "../../server/personServer";
+import Notifier from "./Notifier";
+import { v4 as uuidv4 } from 'uuid';
 
 const PhonebookApp = () => {
-
-  const [persons, setPersons] = useState([])
+  const [persons, setPersons] = useState([]);
+  const [notification, setNotification] = useState(null)
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons")
-    .then((response) => {
-      setPersons(response.data)
-      console.log(response.data)
-    })
-  }, [])
+    personServer
+      .getAll()
+      .then((response) => {
+        setPersons(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log("fail", error);
+      });
+  }, []);
 
   const [values, setValues] = useState({
     name: "",
@@ -57,16 +63,59 @@ const PhonebookApp = () => {
       let personObj = {
         name: values.name,
         number: values.number,
-        id: persons.length + 1,
+        id: uuidv4(), // Generate a unique id using uuid
       };
-      setPersons(persons.concat(personObj));
-      setValues({ name: "", number: "" });
+
+      personServer
+        .create(personObj)
+        .then((response) => {
+          setPersons(persons.concat(response.data));
+          setValues({ name: "", number: "" });
+          setNotification(`${personObj.name} has been added sussessfully`)
+
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000)
+        })
+        .catch((error) => {
+          console.log("fail", error);
+        });
     }
+  };
+
+  const handleUpdate = (id, newNumber) => {
+    const personToUpdate = persons.find((person) => person.id === id);
+    const updatedPerson = { ...personToUpdate, number: newNumber };
+
+    personServer
+    .update(id, updatedPerson)
+    .then((response) => {
+      setPersons(
+        persons.map((person) => (person.id === id ? response.data : person))
+      );
+    })
+    .catch((error) => {
+      console.log(`Error updating person, ${error}`);
+    });
+    
+  }
+
+  const deletPerson = id => {
+    personServer
+    .del(id)
+    .then((response) => {
+      console.log(response.data)
+      setPersons(persons.filter((personToDel) => personToDel.id !== id));
+    })
+    .catch((error) => {
+      console.log(`Error deleting person, ${error}`);
+    });
   };
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notifier notifier={notification} />
       <Filter onChange={handleChange} />
       <PersonsFrom
         onSubmit={handleSubmit}
@@ -76,20 +125,26 @@ const PhonebookApp = () => {
         numOnchange={handleNameAndNum}
       />
       <h2>Numbers</h2>
-      
+
       {filteredNames.length > 0
         ? filteredNames.map((person) => (
             <Persons
               key={person.id}
+              id={person.id}
               name={person.name}
               number={person.number}
+              handleDelete={() => deletPerson(person.id)}
+              handleUpdate={handleUpdate}
             />
           ))
         : persons.map((person) => (
             <Persons
               key={person.id}
+              id={person.id}
               name={person.name}
               number={person.number}
+              handleDelete={() => deletPerson(person.id)}
+              handleUpdate={handleUpdate}
             />
           ))}
     </div>
