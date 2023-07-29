@@ -56,7 +56,7 @@ const CountryData = () => {
         setCountryInfo(null);
       });
   };
-  // *******Getting country information***********
+  // *******Getting country weather information***********
   const getCountryWeather = (countryName) => {
     axios
         .get(
