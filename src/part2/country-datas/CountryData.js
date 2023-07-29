@@ -8,8 +8,6 @@ const CountryData = () => {
   const [countryInfo, setCountryInfo] = useState(null);
   const [weatherData, setWeatherData] = useState(null);
 
-  //   Weather api: be4c5dbd64216a3139b6386547761184
-//   const weatherApi = "https://openweathermap.org/weather-conditions#Icon-list";
   const WEATHER_API_KEY = "be4c5dbd64216a3139b6386547761184";
 
   useEffect(() => {
@@ -41,27 +39,14 @@ const CountryData = () => {
     }
   };
   // *******Getting country information***********
-  const getCountryInfo = (countryInfo) => {
+  const getCountryInfo = (countryName) => {
     axios
-      .get(`https://restcountries.com/v2/name/${countryInfo}?fullText=true`)
+      .get(`https://restcountries.com/v2/name/${countryName}?fullText=true`)
       .then((response) => {
         if (response.data.length > 0) {
           console.log(response.data);
           setCountryInfo(response.data[0]);
           console.log("country code:", response.data[0].region);
-
-          axios
-            .get(
-              `https://api.openweathermap.org/data/2.5/weather?q=${countryInfo}&appid=${WEATHER_API_KEY}&units=metric`
-            )
-            .then((weatherResponse) => {
-              if (weatherResponse) {
-                setWeatherData(weatherResponse.data);
-                console.log(
-                  `here is the weather data: ${weatherResponse.data}`
-                );
-              }
-            });
         } else {
           setCountryInfo(null);
         }
@@ -69,6 +54,25 @@ const CountryData = () => {
       .catch((error) => {
         console.log("Error fetching country data:", error);
         setCountryInfo(null);
+      });
+  };
+  // *******Getting country weather information***********
+  const getCountryWeather = (countryName) => {
+    axios
+        .get(
+            `https://api.openweathermap.org/data/2.5/weather?q=${countryName}&appid=${WEATHER_API_KEY}&units=metric`
+        )
+        .then((weatherResponse) => {
+            if (weatherResponse) {
+            setWeatherData(weatherResponse.data);
+            console.log(
+                `here is the weather data: ${weatherResponse.data}`
+            );
+            }
+        })
+      .catch((error) => {
+        console.log("Error fetching country data:", error);
+        setWeatherData(null);
       });
   };
 
@@ -99,7 +103,10 @@ const CountryData = () => {
             return (
               <li key={index} style={{ listStyle: "none" }}>
                 {currCountry}{" "}
-                <button onClick={() => getCountryInfo(currCountry)}>
+                <button onClick={async () => {
+                    await getCountryInfo(currCountry)
+                    await getCountryWeather(currCountry)
+                }}>
                   country details
                 </button>{" "}
               </li>
@@ -136,7 +143,7 @@ const CountryData = () => {
             <div>
               <h1>Weader in {countryInfo.capital}</h1>
               <p>Temperature: {weatherData.main.temp} °C</p>
-              <img src={getWeatherIconUrl(weatherData.weather[0].icon)} alt="wealder icon" style={{width: '120px', height: '100px'}} />
+              <img src={getWeatherIconUrl(weatherData.weather[0].icon)} alt="wealder icon"  />
               <p>Description: {weatherData.weather[0].description}</p>
             </div>
           )}
