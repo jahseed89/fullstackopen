@@ -72,7 +72,7 @@ const CountryData = () => {
         })
       .catch((error) => {
         console.log("Error fetching country data:", error);
-        setCountryInfo(null);
+        setWeatherData(null);
       });
   };
 
@@ -143,7 +143,7 @@ const CountryData = () => {
             <div>
               <h1>Weader in {countryInfo.capital}</h1>
               <p>Temperature: {weatherData.main.temp} °C</p>
-              <img src={getWeatherIconUrl(weatherData.weather[0].icon)} alt="wealder icon" style={{width: '120px', height: '100px'}} />
+              <img src={getWeatherIconUrl(weatherData.weather[0].icon)} alt="wealder icon"  />
               <p>Description: {weatherData.weather[0].description}</p>
             </div>
           )}
