@@ -15,14 +15,12 @@ const CountryData = () => {
   }, [searchTerm]);
 
   const fetchCountryData = (country) => {
-    console.log("fetching country data...");
     // Check if the search input has at least two characters
     if (country.length >= 2) {
       axios
         .get(`https://restcountries.com/v2/name/${country}?fullText=false`)
         .then((response) => {
           if (response.data.length > 0) {
-            console.log(response.data);
             // Map the response data to an array of country names
             const countryNames = response.data.map((country) => country.name);
             setCountries(countryNames); // Show the country names that match the filter
@@ -32,7 +30,6 @@ const CountryData = () => {
           }
         })
         .catch((error) => {
-          console.log(`Error fetching countries data: ${error}`);
           setCountries([]); // Reset the displayed country on error
           setError("Error fetching country data"); // Set error message on error
         });
@@ -44,7 +41,6 @@ const CountryData = () => {
       .get(`https://restcountries.com/v2/name/${countryName}?fullText=true`)
       .then((response) => {
         if (response.data.length > 0) {
-          console.log(response.data);
           setCountryInfo(response.data[0]);
           console.log("country code:", response.data[0].region);
         } else {
@@ -65,9 +61,6 @@ const CountryData = () => {
         .then((weatherResponse) => {
             if (weatherResponse) {
             setWeatherData(weatherResponse.data);
-            console.log(
-                `here is the weather data: ${weatherResponse.data}`
-            );
             }
         })
       .catch((error) => {

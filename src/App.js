@@ -122,7 +122,7 @@ function App() {
       {/* <h3>The total exercises: {total}</h3> */}
 
       {/* <NoteIndex /> */}
-      {/* <PhonebookApp /> */}
+      <PhonebookApp />
       <CountryData />
     </div>
   );
