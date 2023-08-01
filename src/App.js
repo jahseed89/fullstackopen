@@ -4,7 +4,6 @@
 // import Total from './part1/exercise1.3.-1.5/Total';
 import React from "react";
 
-import PhonebookApp from "./part2/phonebook/PhonebookApp";
 import CountryData from "./part2/country-datas/CountryData";
 
 // import Contents from "./part2/Contents";
@@ -123,7 +122,7 @@ function App() {
       {/* <h3>The total exercises: {total}</h3> */}
 
       {/* <NoteIndex /> */}
-      <PhonebookApp />
+      {/* <PhonebookApp /> */}
       <CountryData />
     </div>
   );

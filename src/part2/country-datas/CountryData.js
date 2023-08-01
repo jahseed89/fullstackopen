@@ -143,7 +143,7 @@ const CountryData = () => {
             <div>
               <h1>Weader in {countryInfo.capital}</h1>
               <p>Temperature: {weatherData.main.temp} °C</p>
-              <img src={getWeatherIconUrl(weatherData.weather[0].icon)} alt="wealder icon"  />
+              <img src={getWeatherIconUrl(weatherData.weather[0].icon)} alt="weather icon"  />
               <p>Description: {weatherData.weather[0].description}</p>
             </div>
           )}
